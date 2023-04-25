@@ -1,0 +1,296 @@
+[
+    {
+        "id": "acde6d04e341334d",
+        "type": "tab",
+        "label": "Flow 2",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "f72628617f3f610f",
+        "type": "debug",
+        "z": "acde6d04e341334d",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 670,
+        "y": 200,
+        "wires": []
+    },
+    {
+        "id": "85f4a620b5ece138",
+        "type": "watson-assistant-v2",
+        "z": "acde6d04e341334d",
+        "name": "Apollo",
+        "service-endpoint": "https://api.au-syd.assistant.watson.cloud.ibm.com/instances/d0252c05-648c-4889-a69e-a3ecc1fa4ce1",
+        "assistant_id": "59768e58-73c1-4a4b-ba70-2095bc12ffcb",
+        "debug": false,
+        "restart": false,
+        "return_context": true,
+        "alternate_intents": false,
+        "multisession": true,
+        "timeout": "",
+        "optout-learning": false,
+        "persist-session-id": false,
+        "x": 470,
+        "y": 260,
+        "wires": [
+            [
+                "f72628617f3f610f",
+                "e9d525cb38d73825",
+                "dfac64ba592fbb48"
+            ]
+        ]
+    },
+    {
+        "id": "c7602f93d7e8762b",
+        "type": "telegram receiver",
+        "z": "acde6d04e341334d",
+        "name": "",
+        "bot": "3d053d9154515c3d",
+        "saveDataDir": "",
+        "filterCommands": false,
+        "x": 110,
+        "y": 340,
+        "wires": [
+            [
+                "192dc86e4a8fab6f"
+            ],
+            [
+                "718ec830bb9bba28"
+            ]
+        ]
+    },
+    {
+        "id": "72ee784ead4214b9",
+        "type": "telegram sender",
+        "z": "acde6d04e341334d",
+        "name": "",
+        "bot": "3d053d9154515c3d",
+        "haserroroutput": false,
+        "outputs": 1,
+        "x": 850,
+        "y": 340,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "cbf36e1f75e1bd2d",
+        "type": "debug",
+        "z": "acde6d04e341334d",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 890,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "192dc86e4a8fab6f",
+        "type": "change",
+        "z": "acde6d04e341334d",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "params.session_id",
+                "pt": "msg",
+                "to": "payload.chatId",
+                "tot": "msg"
+            },
+            {
+                "t": "set",
+                "p": "chatId",
+                "pt": "msg",
+                "to": "payload.chatId",
+                "tot": "msg"
+            },
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.content",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 320,
+        "y": 260,
+        "wires": [
+            [
+                "85f4a620b5ece138"
+            ]
+        ]
+    },
+    {
+        "id": "e9d525cb38d73825",
+        "type": "change",
+        "z": "acde6d04e341334d",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload.chatId",
+                "pt": "msg",
+                "to": "chatId",
+                "tot": "msg"
+            },
+            {
+                "t": "set",
+                "p": "payload.type",
+                "pt": "msg",
+                "to": "message",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "payload.content",
+                "pt": "msg",
+                "to": "payload.output.generic[0].text",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 680,
+        "y": 280,
+        "wires": [
+            [
+                "72ee784ead4214b9",
+                "cbf36e1f75e1bd2d"
+            ]
+        ]
+    },
+    {
+        "id": "718ec830bb9bba28",
+        "type": "function",
+        "z": "acde6d04e341334d",
+        "name": "",
+        "func": "msg.payload.content = \"Voce nao é usuario autorizado\"\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 380,
+        "y": 340,
+        "wires": [
+            [
+                "72ee784ead4214b9"
+            ]
+        ]
+    },
+    {
+        "id": "e2a202c00c6c91eb",
+        "type": "http in",
+        "z": "acde6d04e341334d",
+        "name": "",
+        "url": "/conversa",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 120,
+        "y": 460,
+        "wires": [
+            [
+                "86cd6bfbf3305923"
+            ]
+        ]
+    },
+    {
+        "id": "86cd6bfbf3305923",
+        "type": "function",
+        "z": "acde6d04e341334d",
+        "name": "",
+        "func": "msg.params = {\n\"session_id\" : msg.payload.session_id !== 'undefined' ? msg.payload.session_id : \"\"\n};\nmsg.payload = msg.payload.mensagem;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 340,
+        "y": 460,
+        "wires": [
+            [
+                "85f4a620b5ece138"
+            ]
+        ]
+    },
+    {
+        "id": "dfac64ba592fbb48",
+        "type": "function",
+        "z": "acde6d04e341334d",
+        "name": "",
+        "func": "msg.payload = msg.payload.output.generic;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 620,
+        "y": 480,
+        "wires": [
+            [
+                "5d3653745b8479ec"
+            ]
+        ]
+    },
+    {
+        "id": "5d3653745b8479ec",
+        "type": "http response",
+        "z": "acde6d04e341334d",
+        "name": "",
+        "statusCode": "",
+        "headers": {
+            "Access-Control-Allow-Origin": "*"
+        },
+        "x": 730,
+        "y": 580,
+        "wires": []
+    },
+    {
+        "id": "3d053d9154515c3d",
+        "type": "telegram bot",
+        "botname": "assistente_apollo_bot",
+        "usernames": "",
+        "chatids": "",
+        "baseapiurl": "",
+        "updatemode": "polling",
+        "pollinterval": "300",
+        "usesocks": false,
+        "sockshost": "",
+        "socksprotocol": "socks5",
+        "socksport": "6667",
+        "socksusername": "anonymous",
+        "sockspassword": "",
+        "bothost": "",
+        "botpath": "",
+        "localbotport": "8443",
+        "publicbotport": "8443",
+        "privatekey": "",
+        "certificate": "",
+        "useselfsignedcertificate": false,
+        "sslterminated": false,
+        "verboselogging": false
+    }
+]
