@@ -474,7 +474,7 @@
         "keywords-threshold": "0.5",
         "word-confidence": false,
         "password": "",
-        "apikey": "ZKD1e525PYv5Tl8bG6GP3zVNLqS_SOrlkangN5vN2pjK",
+        "apikey": "",
         "payload-response": true,
         "streaming-mode": false,
         "streaming-mute": true,
