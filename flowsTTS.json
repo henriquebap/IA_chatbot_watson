@@ -1,0 +1,163 @@
+[
+    {
+        "id": "58b844495213a5f0",
+        "type": "tab",
+        "label": "Flow 1",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "3943450995274f92",
+        "type": "telegram bot",
+        "botname": "Apollo_bot",
+        "usernames": "",
+        "chatids": "",
+        "baseapiurl": "",
+        "updatemode": "polling",
+        "pollinterval": "300",
+        "usesocks": false,
+        "sockshost": "",
+        "socksprotocol": "socks5",
+        "socksport": "6667",
+        "socksusername": "anonymous",
+        "sockspassword": "",
+        "bothost": "",
+        "botpath": "",
+        "localbotport": "8443",
+        "publicbotport": "8443",
+        "privatekey": "",
+        "certificate": "",
+        "useselfsignedcertificate": false,
+        "sslterminated": false,
+        "verboselogging": false
+    },
+    {
+        "id": "9a53485df6828169",
+        "type": "watson-text-to-speech",
+        "z": "58b844495213a5f0",
+        "name": "",
+        "lang": "pt-BR",
+        "langhidden": "pt-BR",
+        "langcustom": "NoCustomisationSetting",
+        "langcustomhidden": "",
+        "voice": "pt-BR_IsabelaV3Voice",
+        "voicehidden": "",
+        "format": "audio/wav",
+        "password": "",
+        "apikey": "kSLWR1TuQCsbIHozrrwSZKztWrMpZH8JqgDhAqMsu-EF",
+        "payload-response": true,
+        "service-endpoint": "https://api.us-south.text-to-speech.watson.cloud.ibm.com/instances/39b4b6ac-6b2b-4061-a440-978b5d75bfa3",
+        "x": 480,
+        "y": 1000,
+        "wires": [
+            [
+                "eda13bb47d705ade",
+                "ad9b216cdb291a26",
+                "5565b3f5b1e9c2a4"
+            ]
+        ]
+    },
+    {
+        "id": "7918e31410a5c16c",
+        "type": "telegram receiver",
+        "z": "58b844495213a5f0",
+        "name": "",
+        "bot": "3943450995274f92",
+        "saveDataDir": "",
+        "filterCommands": false,
+        "x": 210,
+        "y": 1000,
+        "wires": [
+            [],
+            []
+        ]
+    },
+    {
+        "id": "c5c4699c6bc04d43",
+        "type": "function",
+        "z": "58b844495213a5f0",
+        "name": "",
+        "func": "msg.params = {\n    \"session_id\": 123 \n};\nmsg.ChatId = msg.payload.ChatId;\nmsg.payload = msg.payload.content\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 360,
+        "y": 920,
+        "wires": [
+            [
+                "9a53485df6828169"
+            ]
+        ]
+    },
+    {
+        "id": "eda13bb47d705ade",
+        "type": "debug",
+        "z": "58b844495213a5f0",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 610,
+        "y": 920,
+        "wires": []
+    },
+    {
+        "id": "ad9b216cdb291a26",
+        "type": "play audio",
+        "z": "58b844495213a5f0",
+        "name": "",
+        "voice": "0",
+        "x": 690,
+        "y": 1040,
+        "wires": []
+    },
+    {
+        "id": "3b0dede22e78472e",
+        "type": "inject",
+        "z": "58b844495213a5f0",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "Meu nome e Apollo",
+        "payloadType": "str",
+        "x": 350,
+        "y": 1100,
+        "wires": [
+            [
+                "9a53485df6828169"
+            ]
+        ]
+    },
+    {
+        "id": "5565b3f5b1e9c2a4",
+        "type": "file",
+        "z": "58b844495213a5f0",
+        "name": "",
+        "filename": "D:\\audio\\audio.wav",
+        "appendNewline": true,
+        "createDir": false,
+        "overwriteFile": "true",
+        "encoding": "none",
+        "x": 690,
+        "y": 1100,
+        "wires": [
+            []
+        ]
+    }
+]
